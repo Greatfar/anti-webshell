@@ -56,7 +56,7 @@ function copy_file($source_path) {
     }
 	if(copy($source_path, $target_path)) {
         echo "{$source_path}<span style='color:#f00;font-weight:bold;'>文件已备份</span>--&gt;{$target_path}<br><br>";
-        if($is_log) {
+        if($GLOBALS['is_log']) {
             log_info(['backup file:',$source_path,$target_path]);
         }
     }
@@ -74,6 +74,7 @@ $matches = array(
     '/thinkapi=base64_decode/i',
 	'/@e#html/i'
 );
+
 //如果用户输入了特征代码，使用用户输入的特征代码片段进行查杀
 if(isset($_POST['subcode']) && !empty($_POST['subcode'])) {
     $matches = array("/{$_POST['subcode']}/i");
