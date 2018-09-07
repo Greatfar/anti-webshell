@@ -55,7 +55,7 @@ function copy_file($source_path) {
         mkdir(BAK_PATH);
     }
 	if(copy($source_path, $target_path)) {
-        echo "{$source_path}<span style='color:#f00;font-weight:bold;'>--&gt;文件已备份</span>--&gt;{$target_path}<br><br>";
+        echo "{$source_path}&nbsp;&nbsp;--&gt;&nbsp;&nbsp;<span style='color:#f00;font-weight:bold;'>文件已备份</span>&nbsp;&nbsp;--&gt;&nbsp;&nbsp;{$target_path}<br><br>";
         if($GLOBALS['is_log']) {
             log_info(['backup file:',$source_path,$target_path]);
         }
@@ -113,7 +113,7 @@ function antivirus($dir,$exs,$matches) {
                     if($GLOBALS['is_del']) {
                         if($GLOBALS['is_bak']) { copy_file($path); }  //备份文件
                         unlink($path);  //删除文件
-                        echo "{$path}<span style='color:#f00;font-weight:bold;'>--&gt;文件已删除--&gt;</span><br><br>";
+                        echo "{$path}&nbsp;&nbsp;--&gt;&nbsp;&nbsp;<span style='color:#f00;font-weight:bold;'>文件已删除</span><br><br>";
                         if($GLOBALS['is_log']) { log_info(['delete file:',$path]); }  //记录日志
                     }
                     flush(); ob_flush(); break;
