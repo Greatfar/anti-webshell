@@ -137,8 +137,8 @@ function antivirus($dir,$exs,$matches) {
 <body>
 	<?php
 		echo '<form method="POST">';
-		echo '路径: <input type="text" name="dir" value="'.($_POST['dir'] ? strdir($_POST['dir'].'/') : strdir($_SERVER['DOCUMENT_ROOT'].'/')).'" style="width:398px;"><p></p>';
-		echo '后缀: <input type="text" name="exs" value="'.($_POST['exs'] ? $_POST['exs'] : '.php|.inc|.phtml').'" style="width:398px;"><p></p>';
+		echo '扫描路径: <input type="text" name="dir" value="'.($_POST['dir'] ? strdir($_POST['dir'].'/') : strdir($_SERVER['DOCUMENT_ROOT'].'/')).'" style="width:398px;"><p></p>';
+		echo '文件类型: <input type="text" name="exs" value="'.($_POST['exs'] ? $_POST['exs'] : '.php|.inc|.phtml').'" style="width:398px;"><p></p>';
 		echo '特征代码: <input type="text" name="subcode" value="'.($_POST['subcode'] ? $_POST['subcode'] : '').'" style="width:366px;"><p></p>';
 		echo '删除文件: <input type="checkbox" name="isdel" value="true"/><p></p>';
 		echo '<input type="submit" style="width:80px;" value="扫描"><p></p>';
