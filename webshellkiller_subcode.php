@@ -57,7 +57,7 @@ function copy_file($source_path) {
 	if(copy($source_path, $target_path)) {
         echo "{$source_path}&nbsp;&nbsp;--&gt;&nbsp;&nbsp;<span style='color:#f00;font-weight:bold;'>文件已备份</span>&nbsp;&nbsp;--&gt;&nbsp;&nbsp;{$target_path}<br><br>";
         if($GLOBALS['is_log']) {
-            log_info(['backup file:',$source_path,$target_path]);
+            @log_info(array('backup file:',$source_path,$target_path));
         }
     }
 }
@@ -111,10 +111,14 @@ function antivirus($dir,$exs,$matches) {
                 if($len > 6 && $len < 200) {
                     echo '特征 <input type="text" style="width:250px;" value="'.htmlspecialchars($array[0]).'">    '.$path.'<p></p>';
                     if($GLOBALS['is_del']) {
-                        if($GLOBALS['is_bak']) { copy_file($path); }  //备份文件
+                        if($GLOBALS['is_bak']) {  //备份文件
+                        	@copy_file($path);
+                        }
                         unlink($path);  //删除文件
                         echo "{$path}&nbsp;&nbsp;--&gt;&nbsp;&nbsp;<span style='color:#f00;font-weight:bold;'>文件已删除</span><br><br>";
-                        if($GLOBALS['is_log']) { log_info(['delete file:',$path]); }  //记录日志
+                        if($GLOBALS['is_log']) {
+                        	@log_info(array('delete file:',$path));
+                        }
                     }
                     flush(); ob_flush(); break;
                 }
