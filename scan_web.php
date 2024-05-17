@@ -106,22 +106,19 @@ function antivirus($dir,$exs,$matches) {
                 $array = array();
                 preg_match($matche,$code,$array);
                 if(!$array) continue;
-                if(strpos($array[0],"\x24\x74\x68\x69\x73\x2d\x3e")) continue;
-                $len = strlen($array[0]);
-                if($len > 6 && $len < 200) {
-                    echo '特征 <input type="text" style="width:250px;" value="'.htmlspecialchars($array[0]).'">    '.$path.'<p></p>';
-                    if($GLOBALS['is_del']) {
-                        if($GLOBALS['is_bak']) {  //备份文件
-                        	@copy_file($path);
-                        }
-                        unlink($path);  //删除文件
-                        echo "{$path}&nbsp;&nbsp;--&gt;&nbsp;&nbsp;<span style='color:#f00;font-weight:bold;'>文件已删除</span><br><br>";
-                        if($GLOBALS['is_log']) {
-                        	@log_info(array('delete file:',$path));
-                        }
+                if(strpos($array[0],"\x24\x74\x68\x69\x73\x2d\x3e")) continue; // 排除一些特征码，如：$this->
+                echo '特征 <input type="text" style="width:250px;" value="'.htmlspecialchars($array[0]).'">    '.$path.'<p></p>';
+                if($GLOBALS['is_del']) {
+                    if($GLOBALS['is_bak']) {  //备份文件
+                        @copy_file($path);
                     }
-                    flush(); ob_flush(); break;
+                    unlink($path);  //删除文件
+                    echo "{$path}&nbsp;&nbsp;--&gt;&nbsp;&nbsp;<span style='color:#f00;font-weight:bold;'>文件已删除</span><br><br>";
+                    if($GLOBALS['is_log']) {
+                        @log_info(array('delete file:',$path));
+                    }
                 }
+                flush(); ob_flush(); break;
             }
             unset($code,$array);
         }
