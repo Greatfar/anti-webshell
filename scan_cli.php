@@ -2,7 +2,7 @@
 
 $shellCode = 'error_reporting'; // 特征码，webshell包含的代码，可以作为特征码：error_reporting eval base64_decode fwrite file_put_contents
 $scanDir = '/data/www'; // 扫描目录
-$fileExt = 'php|html|htm'; // 扫描的文件扩展名
+$fileExt = ['php', 'html', 'py']; // 扫描的文件扩展名
 
 /**
  * webshell扫描器（基于特征代码）
@@ -91,8 +91,7 @@ class ScanWebshell
             } else {
                 // 扩展名过滤
                 $fExt = pathinfo($name, PATHINFO_EXTENSION);
-                $extList = explode('|', $exs);
-                if (!in_array(strtolower($fExt), $extList)) {
+                if (!in_array(strtolower($fExt), $exs)) {
                     continue;
                 }
                 // 文件大小过滤
@@ -177,7 +176,7 @@ if (!empty($shellCode)) {
 
 $dir = ScanWebshell::strdir($scanDir . '/');
 echo '扫描路径: ' . ($scanDir ? ScanWebshell::strdir($scanDir . '/') : ScanWebshell::strdir(__DIR__ . '/')) . PHP_EOL;
-echo '文件类型: ' . ($fileExt ? $fileExt : '.php|.inc|.phtml') . PHP_EOL;
+echo '文件类型: ' . (!empty($fileExt) ? json_encode($fileExt) : ['php']) . PHP_EOL;
 echo '特征代码: ' . ($shellCode ? $shellCode : '') . PHP_EOL;
 echo '正在扫描...' . PHP_EOL;
 
