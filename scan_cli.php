@@ -7,24 +7,20 @@
  */
 class ScanWebshell
 {
-    // 存在大量自动复制的webshell时，打开自动删除，非常有用
     public $isLog = true; // 是否记录日志
     public $isBak = true; // 备份被删除的文件
     public $isDelFile = false; // 自动删除扫描到的文件
     public $isEcho = true; // 自动删除扫描到的文件
-
-    public $scanDir = '';
-    public $fileExtList = [];
-    public $matcheCodeList = [];
+    public $fileExtList = []; // 扫描的文件扩展名列表
+    public $matcheCodeList = []; // 扫描的正则表达式列表
     public $matcheFileList = []; // 扫描命中的文件列表
 
     /**
      * 构造方法
      * @param string $shellCode 特征码
-     * @param string $scanDir 扫描目录
      * @param array $fileExtList 扫描的文件扩展名
      * @param bool $isEcho 是否输出扫描过程
-     * @param bool $isDelFile 是否自动删除扫描到的文件
+     * @param bool $isDelFile 是否自动删除扫描到的文件。存在大量自动复制的webshell时，打开自动删除，非常有用
      * @param bool $isLog 是否记录日志
      * @param bool $isBak 是否备份被删除的文件
      */
@@ -116,9 +112,7 @@ class ScanWebshell
 
     /**
      * 查杀webshell主函数
-     * @param  mixed $dir 查找目录
-     * @param  mixed $exs 扩展名
-     * @param  mixed $matches 正则表达式匹配数组,用于特征代码查找
+     * @param string $scanDir 扫描目录
      * @return mixed
      */
     public function antivirus($scanDir = null)
@@ -155,7 +149,7 @@ class ScanWebshell
                 }
                 // 扩展名过滤
                 $fExt = pathinfo($fileName, PATHINFO_EXTENSION);
-                if (!in_array($fExt, $this->fileExtList)) {
+                if (!in_array(strtolower($fExt), $this->fileExtList)) {
                     continue;
                 }
                 // 文件大小过滤
@@ -224,7 +218,7 @@ class ScanWebshell
 // 大部分webshell都有error_reporting，但是有error_reporting不一定是webshell
 // 特征码，如：error_reporting eval fwrite file_put_contents base64_decode
 $scanWebshell = new ScanWebshell('error_reporting', ['php']);
-$scanWebshell->antivirus('/data/www');
+$scanWebshell->antivirus('D:\workspace');
 $resList = $scanWebshell->getScanRes();
 // 打印扫描结果
 if (!empty($resList)) {
