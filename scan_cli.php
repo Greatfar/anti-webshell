@@ -2,7 +2,7 @@
 
 /**
  * webshell扫描器（基于特征代码）
- * 命令行模式运行，上传到服务器，执行 php scan.php 即可
+ * CLI命令行模式
  * @author Greatfar
  */
 class ScanWebshell
@@ -218,7 +218,7 @@ class ScanWebshell
 // 大部分webshell都有error_reporting，但是有error_reporting不一定是webshell
 // 特征码，如：error_reporting eval fwrite file_put_contents base64_decode
 $scanWebshell = new ScanWebshell('error_reporting', ['php']);
-$scanWebshell->antivirus('D:\workspace');
+$scanWebshell->antivirus('D:\workspace'); // 扫描目录，自行修改成需要扫描的目录
 $resList = $scanWebshell->getScanRes();
 // 打印扫描结果
 if (!empty($resList)) {
