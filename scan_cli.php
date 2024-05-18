@@ -23,6 +23,10 @@ class ScanWebshell
      * @param string $shellCode 特征码
      * @param string $scanDir 扫描目录
      * @param array $fileExtList 扫描的文件扩展名
+     * @param bool $isEcho 是否输出扫描过程
+     * @param bool $isDelFile 是否自动删除扫描到的文件
+     * @param bool $isLog 是否记录日志
+     * @param bool $isBak 是否备份被删除的文件
      */
     public function __construct($shellCode = null, $fileExtList = null, $isEcho = true, $isDelFile = false, $isLog = true, $isBak = true)
     {
