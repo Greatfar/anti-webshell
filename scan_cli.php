@@ -10,7 +10,7 @@ class ScanWebshell
     public $isLog = true; // 是否记录日志
     public $isBak = true; // 备份被删除的文件
     public $isDelFile = false; // 自动删除扫描到的文件
-    public $isEcho = true; // 自动删除扫描到的文件
+    public $isEcho = true; // 是否输出扫描过程
     public $fileExtList = []; // 扫描的文件扩展名列表
     public $matcheCodeList = []; // 扫描的正则表达式列表
     public $matcheFileList = []; // 扫描命中的文件列表
@@ -218,7 +218,7 @@ class ScanWebshell
 // 大部分webshell都有error_reporting，但是有error_reporting不一定是webshell
 // 特征码，如：error_reporting eval fwrite file_put_contents base64_decode
 $scanWebshell = new ScanWebshell('error_reporting', ['php']);
-$scanWebshell->antivirus('D:\workspace'); // 扫描目录，自行修改成需要扫描的目录
+$scanWebshell->antivirus('D:\workspace'); // 扫描目录，修改成需要扫描的目录
 $resList = $scanWebshell->getScanRes();
 // 打印扫描结果
 if (!empty($resList)) {
