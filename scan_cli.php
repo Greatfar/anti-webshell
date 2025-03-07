@@ -220,7 +220,8 @@ class ScanWebshell
 // 小马，一句话木马的两种形式：assert($_POST['mima']); 和 eval($_POST['hack']); 特征码扫描是指搜索这两个危险函数
 // 大马，通过搜索error_reporting可以找到很多可疑文件，然后查看源代码确认是webshell木马后，再从大马中提取特征函数名进行扫描，一些木马自动写入非常多的位置，可以开启自动删除
 $scanWebshell = new ScanWebshell('error_reporting', ['php']);
-$scanWebshell->antivirus('D:\workspace'); // 扫描目录，修改成需要扫描的目录
+// $scanWebshell->antivirus('D:\workspace'); // 扫描目录，修改成需要扫描的目录，windows示例
+$scanWebshell->antivirus('/www/wwwroot/'); // 扫描目录，修改成需要扫描的目录，Linux示例
 $resList = $scanWebshell->getScanRes();
 // 打印扫描结果
 if (!empty($resList)) {
