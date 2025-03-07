@@ -215,8 +215,10 @@ class ScanWebshell
 
 
 // 扫描目录
-// 大部分webshell都有error_reporting，但是有error_reporting不一定是webshell
-// 特征码，如：error_reporting eval fwrite file_put_contents base64_decode
+// 大部分webshell大马都有error_reporting，但是有error_reporting不一定是webshell
+// 特征码，如：error_reporting eval assert fwrite file_put_contents base64_decode
+// 小马，一句话木马的两种形式：assert($_POST['mima']); 和 eval($_POST['hack']); 特征码扫描是指搜索这两个危险函数
+// 大马，通过搜索error_reporting可以找到很多可疑文件，然后查看源代码确认是webshell木马后，再从大马中提取特征函数名进行扫描，一些木马自动写入非常多的位置，可以开启自动删除
 $scanWebshell = new ScanWebshell('error_reporting', ['php']);
 $scanWebshell->antivirus('D:\workspace'); // 扫描目录，修改成需要扫描的目录
 $resList = $scanWebshell->getScanRes();
